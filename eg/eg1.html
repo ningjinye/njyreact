@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <!--核心代码-->
+    <script src="node_modules/react/dist/react.min.js"></script>
+    <script src="node_modules/react-dom/dist/react-dom.min.js"></script>
+</head>
+<body>
+<script src="node_modules/babel-standalone/babel.min.js"></script>
+<div id="root"></div>
+<script type="text/babel">
+    class Timer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {secondsElapsed: 0};
+        }
+
+        tick() {
+            this.setState((prevState) => ({
+                secondsElapsed: prevState.secondsElapsed + 1
+            }));
+        }
+
+        componentDidMount() {
+            this.interval = setInterval(() => this.tick(), 1000);
+        }
+
+        componentWillUnmount() {
+            clearInterval(this.interval);
+        }
+
+        render() {
+            return (
+                    <div>秒表: {this.state.secondsElapsed}</div>
+            );
+        }
+    }
+
+    ReactDOM.render(<Timer />, document.getElementById("root"));
+
+</script>
+</body>
+</html>
